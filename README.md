@@ -1,0 +1,2 @@
+# 35-COLLABORATION-SERVER-MCDONALD
+35기 AND SOPT 합동 세미나 모바일 웹 4팀 - 맥도날드🍔
