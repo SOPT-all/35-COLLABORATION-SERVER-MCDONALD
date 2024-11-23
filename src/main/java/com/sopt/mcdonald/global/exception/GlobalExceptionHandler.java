@@ -1,5 +1,6 @@
 package com.sopt.mcdonald.global.exception;
 
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,6 +23,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(McdonaldException.class)
     public ResponseEntity<ExceptionResponse> handleMcdonaldException(McdonaldException e) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.BAD_REQUEST.toString(), e.getMessage());
+        log.warn("exception Message : {},\n exceptionStackTrace : {}", e.getMessage(), e.getStackTrace());
+        return ResponseEntity.badRequest().body(exceptionResponse);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ExceptionResponse> handleConstraintViolationException(ConstraintViolationException e) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.BAD_REQUEST.toString(), e.getMessage());
         log.warn("exception Message : {},\n exceptionStackTrace : {}", e.getMessage(), e.getStackTrace());
         return ResponseEntity.badRequest().body(exceptionResponse);
