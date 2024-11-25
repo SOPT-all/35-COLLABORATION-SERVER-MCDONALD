@@ -23,9 +23,10 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(McdonaldException.class)
     public ResponseEntity<ExceptionResponse> handleMcdonaldException(McdonaldException e) {
-        ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.BAD_REQUEST.toString(), e.getMessage());
+        HttpStatus status = e.getStatusCode();
+        ExceptionResponse exceptionResponse = new ExceptionResponse(status.toString(), e.getMessage());
         log.warn("exception Message : {},\n exceptionStackTrace : {}", e.getMessage(), e.getStackTrace());
-        return ResponseEntity.badRequest().body(exceptionResponse);
+        return ResponseEntity.status(status).body(exceptionResponse);
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
