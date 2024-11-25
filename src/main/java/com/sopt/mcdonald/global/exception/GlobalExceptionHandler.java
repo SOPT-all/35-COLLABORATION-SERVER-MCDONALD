@@ -23,9 +23,10 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(McdonaldException.class)
     public ResponseEntity<ExceptionResponse> handleMcdonaldException(McdonaldException e) {
-        ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.BAD_REQUEST.toString(), e.getMessage());
+        HttpStatus status = e.getStatusCode();
+        ExceptionResponse exceptionResponse = new ExceptionResponse(status.toString(), e.getMessage());
         log.warn("exception Message : {},\n exceptionStackTrace : {}", e.getMessage(), e.getStackTrace());
-        return ResponseEntity.badRequest().body(exceptionResponse);
+        return ResponseEntity.status(status).body(exceptionResponse);
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
@@ -33,14 +34,6 @@ public class GlobalExceptionHandler {
         ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.BAD_REQUEST.toString(), e.getMessage());
         log.warn("exception Message : {},\n exceptionStackTrace : {}", e.getMessage(), e.getStackTrace());
         return ResponseEntity.badRequest().body(exceptionResponse);
-    }
-
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<ExceptionResponse> handleIllegalArgumentException(IllegalArgumentException e) {
-        String exceptionMessage = "해당하는 버거 ID를 찾을 수 없습니다.";
-        ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.NOT_FOUND.toString(), e.getMessage());
-        log.warn("exception Message : {},\n exceptionStackTrace : {}", e.getMessage(), e.getStackTrace());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exceptionResponse);
     }
 
     @ExceptionHandler(RuntimeException.class)
