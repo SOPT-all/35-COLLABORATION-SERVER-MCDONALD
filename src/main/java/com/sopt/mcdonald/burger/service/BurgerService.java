@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Component
 public class BurgerService {
     private final BurgerRepository burgerRepository;
@@ -21,5 +23,14 @@ public class BurgerService {
         BurgerEntity burgerEntity = burgerRepository.findById(burgerId)
                 .orElseThrow(()-> new McdonaldException("버거 id를 찾을 수 없습니다.", HttpStatus.NOT_FOUND));
         return BurgerResponse.of(burgerEntity);
+    }
+
+    @Transactional
+    public void updateLikeStatus(long burgerId) {
+        BurgerEntity burgerEntity = burgerRepository.findById(burgerId)
+                .orElseThrow(()-> new McdonaldException("버거 id를 찾을 수 없습니다.", HttpStatus.NOT_FOUND));
+        burgerEntity.setLiked(!burgerEntity.getIsLiked());
+        burgerRepository.save(burgerEntity);
+        BurgerResponse.of(burgerEntity);
     }
 }
