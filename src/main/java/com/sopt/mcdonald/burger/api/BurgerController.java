@@ -2,7 +2,6 @@ package com.sopt.mcdonald.burger.api;
 
 import com.sopt.mcdonald.burger.api.dto.response.ApiResponse;
 import com.sopt.mcdonald.burger.api.dto.response.BurgerResponse;
-import com.sopt.mcdonald.burger.api.dto.response.FavoriteListResponse;
 import com.sopt.mcdonald.burger.service.BurgerService;
 import jakarta.validation.constraints.Min;
 import org.springframework.http.HttpStatus;

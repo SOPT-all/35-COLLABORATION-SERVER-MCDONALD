@@ -1,7 +1,6 @@
 package com.sopt.mcdonald.burger.service;
 
 import com.sopt.mcdonald.burger.api.dto.response.BurgerResponse;
-import com.sopt.mcdonald.burger.api.dto.response.FavoriteListResponse;
 import com.sopt.mcdonald.burger.domain.BurgerEntity;
 import com.sopt.mcdonald.burger.repository.BurgerRepository;
 import com.sopt.mcdonald.global.exception.McdonaldException;
