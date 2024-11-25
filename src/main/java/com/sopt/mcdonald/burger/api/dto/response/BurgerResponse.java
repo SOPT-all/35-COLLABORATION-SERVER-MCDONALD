@@ -6,7 +6,8 @@ import com.sopt.mcdonald.burger.domain.Allergy;
 import com.sopt.mcdonald.burger.domain.NutritionDto;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 public record BurgerResponse(
         long id,
@@ -46,6 +47,6 @@ public record BurgerResponse(
         return burgerEntity.getAllergies().stream()
                 .map(AllergyEntity::getAllergyName)
                 .map(Allergy::getKoreanName)
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 }
