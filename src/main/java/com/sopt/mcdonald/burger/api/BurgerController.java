@@ -13,11 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.sopt.mcdonald.burger.api.dto.response.ApiResponse;
-import com.sopt.mcdonald.burger.api.dto.response.BurgerResponse;
 import com.sopt.mcdonald.burger.api.dto.response.BurgerResponses;
 import com.sopt.mcdonald.burger.domain.Category;
-import com.sopt.mcdonald.burger.service.BurgerService;
+
 
 @RestController
 @Validated
@@ -46,6 +44,7 @@ public class BurgerController {
     public ResponseEntity<FavoriteListResponse> getLike() {
         FavoriteListResponse response = burgerService.getLikeList();
         return ResponseEntity.ok(response);
+    }
 
     @GetMapping("/burgers")
     public ResponseEntity<BurgerResponses> getBurgerByCategory(@RequestParam(name = "category", defaultValue = "ALL") Category category) {
