@@ -22,4 +22,11 @@ public class BurgerService {
                 .orElseThrow(()-> new McdonaldException("버거 id를 찾을 수 없습니다.", HttpStatus.NOT_FOUND));
         return BurgerResponse.of(burgerEntity);
     }
+
+    @Transactional
+    public void updateLikeStatus(long burgerId) {
+        BurgerEntity burgerEntity = burgerRepository.findById(burgerId)
+                .orElseThrow(()-> new McdonaldException("버거 id를 찾을 수 없습니다.", HttpStatus.NOT_FOUND));
+        burgerEntity.switchLiked();
+    }
 }

@@ -61,4 +61,8 @@ public class BurgerEntity {
 
     @Column(nullable = false)
     private Boolean isLiked=false;
+    
+    public void switchLiked(){
+        this.isLiked = !this.isLiked;
+    }
 }
