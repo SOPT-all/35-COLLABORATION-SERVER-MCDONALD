@@ -5,11 +5,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import com.sopt.mcdonald.burger.api.dto.response.BurgerResponse;
+
+import com.sopt.mcdonald.burger.api.dto.response.FavoriteListResponse;
+
 import com.sopt.mcdonald.burger.api.dto.response.BurgerResponses;
 import com.sopt.mcdonald.burger.domain.BurgerEntity;
 import com.sopt.mcdonald.burger.domain.Category;
 import com.sopt.mcdonald.burger.repository.BurgerRepository;
 import com.sopt.mcdonald.global.exception.McdonaldException;
+
+import java.util.List;
 
 @Component
 public class BurgerService {
@@ -33,6 +38,12 @@ public class BurgerService {
         burgerEntity.switchLiked();
     }
 
+    @Transactional(readOnly = true)
+    public FavoriteListResponse getLikeList() {
+        List<BurgerEntity> burgers = burgerRepository.findByIsLikedTrue();
+        return FavoriteListResponse.of(burgers);
+    }
+    
     @Transactional(readOnly = true)
     public BurgerResponses getBurgerByCategory(Category category) {
         if (Category.ALL == category) {

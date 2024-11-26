@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public interface BurgerRepository extends JpaRepository<BurgerEntity, Long> {
-
+    List<BurgerEntity> findByIsLikedTrue();
     List<BurgerEntity> findByCategory(Category category);
 }
 
