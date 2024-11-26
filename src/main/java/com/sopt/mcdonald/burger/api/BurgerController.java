@@ -2,6 +2,7 @@ package com.sopt.mcdonald.burger.api;
 
 import com.sopt.mcdonald.burger.api.dto.response.ApiResponse;
 import com.sopt.mcdonald.burger.api.dto.response.BurgerResponse;
+import com.sopt.mcdonald.burger.api.dto.response.FavoriteListResponse;
 import com.sopt.mcdonald.burger.service.BurgerService;
 import jakarta.validation.constraints.Min;
 import org.springframework.http.HttpStatus;
@@ -29,5 +30,11 @@ public class BurgerController {
         burgerService.updateLikeStatus(burgerId);
         ApiResponse successResponse = new ApiResponse(HttpStatus.OK.toString(), "요청이 성공했습니다.");
         return ResponseEntity.ok(successResponse);
+    }
+
+    @GetMapping("/favorites")
+    public ResponseEntity<FavoriteListResponse> getLike() {
+        FavoriteListResponse response = burgerService.getLikeList();
+        return ResponseEntity.ok(response);
     }
 }
