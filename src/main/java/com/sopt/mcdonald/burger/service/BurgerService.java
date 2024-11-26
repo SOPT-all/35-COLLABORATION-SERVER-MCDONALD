@@ -35,6 +35,10 @@ public class BurgerService {
 
     @Transactional(readOnly = true)
     public BurgerResponses getBurgerByCategory(Category category) {
+        if (Category.ALL == category) {
+            List<BurgerEntity> all = burgerRepository.findAll();
+            return BurgerResponses.from(all);
+        }
         List<BurgerEntity> burgers = burgerRepository.findByCategory(category);
         return BurgerResponses.from(burgers);
     }
