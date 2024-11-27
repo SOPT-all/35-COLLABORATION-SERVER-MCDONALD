@@ -1,9 +1,6 @@
 package com.sopt.mcdonald.burger.api.dto.response;
 
-import com.sopt.mcdonald.burger.domain.AllergyEntity;
-import com.sopt.mcdonald.burger.domain.BurgerEntity;
-import com.sopt.mcdonald.burger.domain.Allergy;
-import com.sopt.mcdonald.burger.domain.NutritionDto;
+import com.sopt.mcdonald.burger.domain.*;
 
 import java.util.List;
 
@@ -12,7 +9,8 @@ public record BurgerResponse(
         String burger_name,
         String burger_name_eng,
         String description,
-        NutritionDto nutrition,
+        NutritionDto nutritionContent,
+        NutritionDto nutritionRef,
         List<String> allergy,
         String origin
 ) {
@@ -23,6 +21,7 @@ public record BurgerResponse(
                 burgerEntity.getBurgerNameEng(),
                 burgerEntity.getDescription(),
                 buildNutrition(burgerEntity),
+                buildNutritionRef(burgerEntity),
                 buildAllergies(burgerEntity),
                 burgerEntity.getOrigin()
         );
@@ -38,6 +37,19 @@ public record BurgerResponse(
                 burgerEntity.getSaturatedFat(),
                 burgerEntity.getSodium(),
                 burgerEntity.getCaffeine()
+        );
+    }
+
+    private static NutritionDto buildNutritionRef(BurgerEntity burgerEntity) {
+        return NutritionDto.of(
+                burgerEntity.getWeightGRef(),
+                burgerEntity.getWeightMlRef(),
+                burgerEntity.getCaloriesRef(),
+                burgerEntity.getSugarRef(),
+                burgerEntity.getProteinRef(),
+                burgerEntity.getSaturatedFatRef(),
+                burgerEntity.getSodiumRef(),
+                burgerEntity.getCaffeineRef()
         );
     }
 
