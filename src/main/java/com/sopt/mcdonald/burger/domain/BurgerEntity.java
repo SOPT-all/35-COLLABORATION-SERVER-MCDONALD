@@ -53,6 +53,30 @@ public class BurgerEntity {
     @Column(name = "caffeine")
     private Integer caffeine;
 
+    @Column(name = "weight_g_ref")
+    private Integer weightGRef;
+
+    @Column(name = "weight_ml_ref")
+    private Integer weightMlRef;
+
+    @Column(name = "calories_ref")
+    private Integer caloriesRef;
+
+    @Column(name = "sugar_ref")
+    private Integer sugarRef;
+
+    @Column(name = "protein_ref")
+    private Integer proteinRef;
+
+    @Column(name = "saturated_fat_ref")
+    private Integer saturatedFatRef;
+
+    @Column(name = "sodium_ref")
+    private Integer sodiumRef;
+
+    @Column(name = "caffeine_ref")
+    private Integer caffeineRef;
+
     @OneToMany(mappedBy = "burgerEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AllergyEntity> allergies;
 
