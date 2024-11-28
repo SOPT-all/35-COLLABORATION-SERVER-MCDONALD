@@ -5,16 +5,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import com.sopt.mcdonald.burger.api.dto.response.BurgerResponse;
-
-import com.sopt.mcdonald.burger.api.dto.response.FavoriteListResponse;
-
 import com.sopt.mcdonald.burger.api.dto.response.BurgerResponses;
+import com.sopt.mcdonald.burger.api.dto.response.FavoriteListResponse;
 import com.sopt.mcdonald.burger.domain.BurgerEntity;
 import com.sopt.mcdonald.burger.domain.Category;
+import com.sopt.mcdonald.burger.domain.Type;
 import com.sopt.mcdonald.burger.repository.BurgerRepository;
 import com.sopt.mcdonald.global.exception.McdonaldException;
-
-import java.util.List;
 
 @Component
 public class BurgerService {
@@ -43,14 +40,14 @@ public class BurgerService {
         List<BurgerEntity> burgers = burgerRepository.findByIsLikedTrue();
         return FavoriteListResponse.of(burgers);
     }
-    
+
     @Transactional(readOnly = true)
-    public BurgerResponses getBurgerByCategory(Category category) {
+    public BurgerResponses getBurgerBy(Category category, Type type) {
         if (Category.ALL == category) {
-            List<BurgerEntity> all = burgerRepository.findAll();
+            List<BurgerEntity> all = burgerRepository.findByType(type);
             return BurgerResponses.from(all);
         }
-        List<BurgerEntity> burgers = burgerRepository.findByCategory(category);
+        List<BurgerEntity> burgers = burgerRepository.findByCategoryAndType(category, type);
         return BurgerResponses.from(burgers);
     }
 }

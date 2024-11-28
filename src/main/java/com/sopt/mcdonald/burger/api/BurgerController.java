@@ -1,8 +1,4 @@
 package com.sopt.mcdonald.burger.api;
-import com.sopt.mcdonald.burger.api.dto.response.ApiResponse;
-import com.sopt.mcdonald.burger.api.dto.response.BurgerResponse;
-import com.sopt.mcdonald.burger.api.dto.response.FavoriteListResponse;
-import com.sopt.mcdonald.burger.service.BurgerService;
 
 import jakarta.validation.constraints.Min;
 import org.springframework.http.HttpStatus;
@@ -13,8 +9,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import com.sopt.mcdonald.burger.api.dto.response.ApiResponse;
+import com.sopt.mcdonald.burger.api.dto.response.BurgerResponse;
 import com.sopt.mcdonald.burger.api.dto.response.BurgerResponses;
+import com.sopt.mcdonald.burger.api.dto.response.FavoriteListResponse;
 import com.sopt.mcdonald.burger.domain.Category;
+import com.sopt.mcdonald.burger.domain.Type;
+import com.sopt.mcdonald.burger.service.BurgerService;
 
 
 @RestController
@@ -47,8 +48,9 @@ public class BurgerController {
     }
 
     @GetMapping("/burgers")
-    public ResponseEntity<BurgerResponses> getBurgerByCategory(@RequestParam(name = "category", defaultValue = "ALL") Category category) {
-        BurgerResponses burgers = burgerService.getBurgerByCategory(category);
+    public ResponseEntity<BurgerResponses> getBurgerBy(@RequestParam(name = "category", defaultValue = "ALL", required = false) Category category,
+                                                       @RequestParam(name = "type") Type type) {
+        BurgerResponses burgers = burgerService.getBurgerBy(category, type);
         return ResponseEntity.ok(burgers);
 
     }
