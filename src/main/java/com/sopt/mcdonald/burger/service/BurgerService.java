@@ -42,12 +42,12 @@ public class BurgerService {
     }
 
     @Transactional(readOnly = true)
-    public BurgerResponses getBurgerBy(Category category, Type type) {
+    public BurgerResponses getBurgerBy(Category category, Type type, long burgerId, int size) {
         if (Category.ALL == category) {
-            List<BurgerEntity> all = burgerRepository.findByType(type);
+            List<BurgerEntity> all = burgerRepository.findByTypeWithCursor(type.name(), burgerId, size);
             return BurgerResponses.from(all);
         }
-        List<BurgerEntity> burgers = burgerRepository.findByCategoryAndType(category, type);
+        List<BurgerEntity> burgers = burgerRepository.findByCategoryAndTypeWithCursor(category.name(), type.name(), burgerId, size);
         return BurgerResponses.from(burgers);
     }
 }

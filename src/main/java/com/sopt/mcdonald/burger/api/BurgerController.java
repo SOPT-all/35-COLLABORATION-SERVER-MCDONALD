@@ -49,8 +49,12 @@ public class BurgerController {
 
     @GetMapping("/burgers")
     public ResponseEntity<BurgerResponses> getBurgerBy(@RequestParam(name = "category", defaultValue = "ALL", required = false) Category category,
-                                                       @RequestParam(name = "type") Type type) {
-        BurgerResponses burgers = burgerService.getBurgerBy(category, type);
+                                                       @RequestParam(name = "type") Type type,
+                                                       @RequestParam(name = "cursor", defaultValue = "0")
+                                                       @Min(value = 0, message = "버거의 식별값은 양수로 이루어져야 합니다.")
+                                                       long burgerId,
+                                                       @RequestParam(defaultValue = "6", required = false) int size) {
+        BurgerResponses burgers = burgerService.getBurgerBy(category, type, burgerId, size);
         return ResponseEntity.ok(burgers);
 
     }
