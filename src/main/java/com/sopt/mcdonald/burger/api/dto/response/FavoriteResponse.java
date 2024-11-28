@@ -10,12 +10,14 @@ public class FavoriteResponse {
     private Long id;
     private String burgerName;
     private String burgerNameEng;
+    private boolean isLiked;
 
     public static FavoriteResponse of(BurgerEntity burgerEntity) {
         return new FavoriteResponse(
                 burgerEntity.getBurgerId(),
                 burgerEntity.getBurgerName(),
-                burgerEntity.getBurgerNameEng()
+                burgerEntity.getBurgerNameEng(),
+                burgerEntity.getIsLiked()
         );
     }
 }
